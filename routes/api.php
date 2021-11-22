@@ -30,6 +30,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/add', [PatientController::class, 'add_vital']);
         
     });
+    Route::prefix('/visits')->group(function () {
+        Route::post('/add', [PatientController::class, 'add_visits']);
+        
+    });
 });
 
 // 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
