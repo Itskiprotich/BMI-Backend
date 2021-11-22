@@ -21,10 +21,11 @@ Route::prefix('/patient')->group(function () {
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
-    Route::prefix('/parameters')->group(function () {
+    Route::prefix('/patient')->group(function () {
         Route::post('/loantype/add', [PatientController::class, 'addLoantype']);
         Route::get('/loantype/view', [PatientController::class, 'viewLoantype']);
     });
 });
 
 // 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
+ 

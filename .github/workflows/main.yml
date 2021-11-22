@@ -1,4 +1,4 @@
-name: Publish Website to CPanel
+name: Publish API to CPanel
 on:
   push:
     branches:
