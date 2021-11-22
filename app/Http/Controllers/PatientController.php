@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vital;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -46,7 +47,44 @@ class PatientController extends Controller
 
         return $this->successResponse("success", $customers);
     }
+    public function add_vital(Request  $request)
+    {
+        $attr = $request->validate([
+            'visit_date' => 'required|string',
+            'height' => 'required|string',
+            'weight' => 'required|string',           
+            'bmi' => 'required|string',   
+            'patient_id' => 'required|string',   
+        ]);
+        $bmi=$attr['bmi'];
+        $vital = Vital::create([
+            'visit_date' => $attr['visit_date'],
+            'height' => $attr['height'],
+            'weight' => $attr['weight'],
+            'bmi' => $bmi,
+            'patient_id' => $attr['patient_id'],
+        ]);
 
+
+        if($vital){
+            if($bmi<=25){
+                $data = ([
+                    'slug' => 1,
+                    'message' => "Vital Added Successfully",
+                ]);
+            }else{
+                $data = ([
+                    'slug' => 0,
+                    'message' => "Vital Added Successfully",
+                ]);
+            }
+           
+            return $this->successResponse("success", $data);
+        }else{
+            return $this->errorResponse("Request Failed");
+        }
+
+    }
     /**
      * Store a newly created resource in storage.
      *

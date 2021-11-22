@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Vital extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'visit_date',
+        'email',
+        'password',
+    ];
 }

@@ -27,8 +27,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::prefix('/vital')->group(function () {
-        Route::post('/add', [PatientController::class, 'addLoantype']);
-        Route::get('/view', [PatientController::class, 'viewLoantype']);
+        Route::post('/add', [PatientController::class, 'add_vital']);
+        
     });
 });
 
