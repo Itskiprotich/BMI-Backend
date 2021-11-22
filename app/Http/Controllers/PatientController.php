@@ -111,14 +111,7 @@ class PatientController extends Controller
             ]);
             return $this->successResponse("success", $data);
         }
-        if (Patient::where('email', '=', $attr['email'])->exists()) {
-            $data = ([
-                'proceed' => 1,
-                'message' => 'A User with the same email address already exist'
-            ]);
-            return $this->successResponse("success", $data);
-        }
-
+     
         $patient = Patient::create([
             'firstname' => $attr['firstname'],
             'lastname' => $attr['lastname'],
