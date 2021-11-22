@@ -95,6 +95,12 @@ public function test_sample()
         }
     }
 
+public function view_visits()
+{
+    $patient= Visit::where('on_diet', true)->orderBy('created_at', 'desc')->get();
+    return $this->successResponse("success", $patient);
+}
+
     public function add_visits(Request  $request)
     {
         $attr = $request->validate([
