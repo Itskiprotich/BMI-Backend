@@ -9,6 +9,11 @@ class Visit extends Model
 {
     use HasFactory;
 
+    public function patients()
+    {
+        return $this->belongsTo(Patient::class);
+    }
+
     protected $fillable = [
         'general_health',
         'on_diet',
