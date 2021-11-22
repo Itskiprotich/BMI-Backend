@@ -15,7 +15,7 @@ class Patient extends Model
         'unique',
         'dob',
         'gender',
-        'email'
+        
     ];
 
    

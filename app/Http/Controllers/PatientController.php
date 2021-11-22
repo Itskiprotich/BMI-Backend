@@ -99,10 +99,9 @@ class PatientController extends Controller
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'unique' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users,email',
             'dob' => 'required|string|max:255',
             'gender' => 'required|string|max:255', 
-            'password' => 'required|string|min:6',
+            
         ]);
        
         if (Patient::where('unique', '=', $attr['unique'])->exists()) {
@@ -126,7 +125,7 @@ class PatientController extends Controller
             'unique' => $attr['unique'], 
             'dob' => $attr['dob'], 
             'gender' => $attr['gender'], 
-            'email' => $attr['email'],
+            
         ]);
     }
 
