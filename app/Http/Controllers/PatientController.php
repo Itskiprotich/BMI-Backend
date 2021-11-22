@@ -45,10 +45,18 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $customers = DB::table('patients')->get();
+        $patient = DB::table('patients')->get();
 
-        return $this->successResponse("success", $customers);
+        return $this->successResponse("success", $patient);
     }
+
+public function test_sample()
+{
+    # code...
+    $patient= Patient::where('gender', 'Male')->orderBy('created_at', 'desc')->get();
+    return $this->successResponse("success", $patient);
+}
+
     public function add_vital(Request  $request)
     {
         $attr = $request->validate([
