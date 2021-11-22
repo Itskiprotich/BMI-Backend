@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::prefix('/patient')->group(function () {
+Route::prefix('/user')->group(function () {
     Route::post('/signup', [LoginController::class, 'store']);
     Route::post('/signin', [LoginController::class, 'signin']);
 });

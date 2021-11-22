@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Patient;
 use App\Models\Vital;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -93,7 +94,40 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $attr = $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'unique' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users,email',
+            'dob' => 'required|string|max:255',
+            'gender' => 'required|string|max:255', 
+            'password' => 'required|string|min:6',
+        ]);
+       
+        if (Patient::where('unique', '=', $attr['unique'])->exists()) {
+            $data = ([
+                'proceed' => 1,
+                'message' => 'A User with the same unique already exist'
+            ]);
+            return $this->successResponse("success", $data);
+        }
+        if (Patient::where('email', '=', $attr['email'])->exists()) {
+            $data = ([
+                'proceed' => 1,
+                'message' => 'A User with the same email address already exist'
+            ]);
+            return $this->successResponse("success", $data);
+        }
+
+        $patient = Patient::create([
+            'firstname' => $attr['firstname'],
+            'lastname' => $attr['lastname'],
+            'unique' => $attr['unique'], 
+            'dob' => $attr['dob'], 
+            'gender' => $attr['gender'], 
+            'email' => $attr['email'],
+        ]);
     }
 
     /**
