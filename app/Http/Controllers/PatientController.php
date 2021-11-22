@@ -99,9 +99,9 @@ public function view_visits()
 {
     $visits= Visit::where('on_diet', true)->orderBy('created_at', 'desc')->get();
     
-    foreach($visits->patients as $visit)
+    foreach($visits as $visit)
     {
-    $name=$visit->firstname; ##from patients table
+    $name=$visit->patients->firstname; ##from patients table
     $age=""; ##from patients table
     $bmi="";  ## from vitals table
     return $this->successResponse("success", $name);
