@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
 /*
