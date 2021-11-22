@@ -120,6 +120,13 @@ class PatientController extends Controller
             'gender' => $attr['gender'], 
             
         ]);
+        if($patient){
+            $data = ([
+                'proceed' => 0,
+                'message' => 'Patient Added successfully'
+            ]);
+            return $this->successResponse("success", $data);
+        }
     }
 
     /**
