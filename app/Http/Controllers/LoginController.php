@@ -55,53 +55,30 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
- 
+
         $attr = $request->validate([
+            'email' => 'required|string|email|unique:users,email',
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
-            'unique' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users,email',
-            'dob' => 'required|string|max:255',
-            'gender' => 'required|string|max:255', 
             'password' => 'required|string|min:6',
         ]);
-       
-        if (Patient::where('unique', '=', $attr['unique'])->exists()) {
-            $data = ([
-                'proceed' => 1,
-                'message' => 'A User with the same unique already exist'
-            ]);
-            return $this->successResponse("success", $data);
-        }
-        if (Patient::where('email', '=', $attr['email'])->exists()) {
-            $data = ([
-                'proceed' => 1,
-                'message' => 'A User with the same email address already exist'
-            ]);
-            return $this->successResponse("success", $data);
-        }
 
-        $patient = Patient::create([
-            'firstname' => $attr['firstname'],
-            'lastname' => $attr['lastname'],
-            'unique' => $attr['unique'], 
-            'dob' => $attr['dob'], 
-            'gender' => $attr['gender'], 
+        $user = User::create([
+            'name' => $attr['firstname'] . $attr['lastname'],
+            'password' => bcrypt($attr['password']),
             'email' => $attr['email'],
         ]);
-        if ($patient) {
-            $user = User::create([
-                'name' => $attr['firstname'] . $attr['lastname'],
-                'password' => bcrypt($attr['password']),
-                'email' => $attr['email'],
-            ]);
-        }
-        $data = ([
-            'proceed' => 0,
-            'message' => 'Account creation Successfull'
-        ]);
+        if ($user) {
 
-        return $this->successResponse("success", $data);
+            $data = ([
+                'proceed' => 0,
+                'message' => 'Account creation Successfull'
+            ]);
+
+            return $this->successResponse("success", $data);
+        } else {
+            return $this->errorResponse("Request Failed");
+        }
     }
 
     public function signin(Request $request)
@@ -110,36 +87,27 @@ class LoginController extends Controller
             'email' => 'required|string',
             'password' => 'required|string|min:6',
         ]);
-        if (Patient::where('email', $attr['email'])->exists()) {
-            $patient = Patient::where('email', $attr['email'])->first();
-            $data = ['email' => $patient->email, 'password' => $request->password];
+        $data = ['email' => $request->email, 'password' => $request->password];
 
-            if (!Auth::attempt($data)) {
+        if (!Auth::attempt($data)) {
 
-                return $this->errorResponse("Credentials not match");
-            }
-
-            $user =  User::where('email', '=', $patient->email)->first();
-            $token = $user->createToken('tokens')->plainTextToken;
-
-            $data = ([
-                'id' => $patient->id,
-                'unique' => $patient->unique,
-                'firstname' => $patient->firstname,
-                'lastname' => $patient->lastname,
-                'email' => $patient->email,  
-                'dob'=>$patient->dob,
-                'gender'=>$patient->gender,
-                'updated_at' => $patient->updated_at,
-                'created_at' => $patient->created_at,
-                'access_token' => $token,
-
-            ]);
-
-            return $this->successResponse("success", $data);
-        } else {
-            return $this->errorResponse("Account Not Found");
+            return $this->errorResponse("Credentials not match");
         }
+
+        $user =  User::where('email', '=', $request->email)->first();
+        $token = $user->createToken('tokens')->plainTextToken;
+
+        $data = ([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'updated_at' => $user->updated_at,
+            'created_at' => $user->created_at,
+            'access_token' => $token,
+
+        ]);
+
+        return $this->successResponse("success", $data);
     }
 
     /**
