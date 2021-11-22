@@ -21,9 +21,14 @@ Route::prefix('/patient')->group(function () {
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
-    Route::prefix('/patient')->group(function () {
-        Route::post('/loantype/add', [PatientController::class, 'addLoantype']);
-        Route::get('/loantype/view', [PatientController::class, 'viewLoantype']);
+    Route::prefix('/patients')->group(function () {
+        Route::post('/register', [PatientController::class, 'register']);
+        Route::get('/view', [PatientController::class, 'index']);
+    });
+
+    Route::prefix('/vital')->group(function () {
+        Route::post('/add', [PatientController::class, 'addLoantype']);
+        Route::get('/view', [PatientController::class, 'viewLoantype']);
     });
 });
 

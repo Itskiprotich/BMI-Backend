@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
@@ -41,7 +42,9 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        $customers = DB::table('patients')->get();
+
+        return $this->successResponse("success", $customers);
     }
 
     /**
