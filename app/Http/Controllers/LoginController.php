@@ -24,7 +24,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dfhgfhg
     }
 
     public function signin(Request $request)
