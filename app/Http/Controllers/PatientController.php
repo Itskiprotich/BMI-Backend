@@ -99,10 +99,12 @@ class PatientController extends Controller
     {
         $visits = Visit::where('on_diet', true)->orderBy('created_at', 'desc')->get();
        
-        foreach ($visits->patients as $visit) {
-            $name = "user"; ##from patients table
-            $age = "24"; ##from patients table
-            $bmi = "25";  ## from vitals table
+        foreach ($visits as $visit) {
+            $patient=Patient::where('id',$visit->patient_id)->first();
+            $vital=Vital::where('id',$visit->patient_id)->first();
+            $name = $patient->firstname;
+            $age =  $patient->dob;
+            $bmi = $vital->bmi;
 
             $data = ([
                 'name' => $name,
