@@ -98,7 +98,7 @@ class PatientController extends Controller
         ]);
         
         $visits = Visit::create([
-            'visit_date' => $attr['general_health'],
+            'general_health' => $attr['general_health'],
             'on_diet' => $attr['on_diet'],
             'on_drugs' => $attr['on_drugs'],
             'comments' => $attr['comments'],
