@@ -97,8 +97,11 @@ public function test_sample()
 
 public function view_visits()
 {
-    $patient= Visit::where('on_diet', true)->orderBy('created_at', 'desc')->get();
-    return $this->successResponse("success", $patient);
+    $visits= Visit::where('on_diet', true)->orderBy('created_at', 'desc')->get();
+    $name=$visits->patients->firstname; ##from patients table
+    $age=""; ##from patients table
+    $bmi="";  ## from vitals table
+    return $this->successResponse("success", $name);
 }
 
     public function add_visits(Request  $request)
