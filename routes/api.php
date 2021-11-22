@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,17 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('/patient')->group(function () {
+    Route::post('/signup', [LoginController::class, 'store']);
+    Route::post('/signin', [LoginController::class, 'signin']);
 });
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::prefix('/parameters')->group(function () {
+        Route::post('/loantype/add', [PatientController::class, 'addLoantype']);
+        Route::get('/loantype/view', [PatientController::class, 'viewLoantype']);
+    });
+});
+
+// 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
