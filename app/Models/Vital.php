@@ -10,7 +10,9 @@ class Vital extends Model
     use HasFactory;
     protected $fillable = [
         'visit_date',
-        'email',
-        'password',
+        'height',
+        'weight',
+        'bmi',
+        'patient_id'
     ];
 }
