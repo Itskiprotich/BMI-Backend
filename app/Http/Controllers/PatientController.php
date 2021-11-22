@@ -50,12 +50,12 @@ class PatientController extends Controller
         return $this->successResponse("success", $patient);
     }
 
-public function test_sample()
-{
-    # code...
-    $patient= Patient::where('gender', 'Male')->orderBy('created_at', 'desc')->get();
-    return $this->successResponse("success", $patient);
-}
+    public function test_sample()
+    {
+        # code...
+        $patient = Patient::where('gender', 'Male')->orderBy('created_at', 'desc')->get();
+        return $this->successResponse("success", $patient);
+    }
 
     public function add_vital(Request  $request)
     {
@@ -95,18 +95,26 @@ public function test_sample()
         }
     }
 
-public function view_visits()
-{
-    $visits= Visit::where('on_diet', true)->orderBy('created_at', 'desc')->get();
-    
-    foreach($visits as $visit)
+    public function view_visits()
     {
-    $name=$visit->patients->firstname; ##from patients table
-    $age=""; ##from patients table
-    $bmi="";  ## from vitals table
-    return $this->successResponse("success", $name);
+        $visits = Visit::where('on_diet', true)->orderBy('created_at', 'desc')->get();
+
+        $name= $visits->patients->firstname;
+
+        dd($name);
+        // foreach ($visits as $visit) {
+        //     $name = $visit->patients->firstname; ##from patients table
+        //     $age = ""; ##from patients table
+        //     $bmi = "";  ## from vitals table
+
+        //     $data = ([
+        //         'name' => $name,
+        //         'age' => $age,
+        //         'bmi' => $bmi
+        //     ]);
+        // }
+        // return $this->successResponse("success", $data);
     }
-}
 
     public function add_visits(Request  $request)
     {
@@ -117,7 +125,7 @@ public function view_visits()
             'comments' => 'required|string',
             'patient_id' => 'required|string',
         ]);
-        
+
         $visits = Visit::create([
             'general_health' => $attr['general_health'],
             'on_diet' => $attr['on_diet'],
@@ -125,14 +133,13 @@ public function view_visits()
             'comments' => $attr['comments'],
             'patient_id' => $attr['patient_id'],
         ]);
-        if($visits){
+        if ($visits) {
             $data = ([
                 'slug' => 0,
                 'message' => "Visit Added Successfully",
             ]);
             return $this->successResponse("success", $data);
-
-        }else{
+        } else {
             return $this->errorResponse("Request Failed");
         }
     }
