@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+    
+    RewriteEngine on
+    RewriteRule ^$ public/ [L]
+    RewriteRule (.*) public/$1 [L]
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://bmi.imejadevelopers.co.ke/$1 [R,L]
+
+</IfModule>
