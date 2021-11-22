@@ -20,9 +20,7 @@ class CreateVisitsTable extends Migration
             $table->string('general_health');
             $table->boolean('on_diet')->default(false);
             $table->boolean('on_drugs')->default(false);
-            $table->text('comments');
-            $table->string('weight');
-            $table->string('bmi'); 
+            $table->text('comments'); 
             $table->timestamps();
         });
     }

@@ -10,10 +10,10 @@ class Visit extends Model
     use HasFactory;
 
     protected $fillable = [
-        'visit_date',
-        'height',
-        'weight',
-        'bmi',
+        'general_health',
+        'on_diet',
+        'on_drugs',
+        'comments',
         'patient_id'
     ];
 }
