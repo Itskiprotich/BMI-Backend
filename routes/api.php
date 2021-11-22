@@ -22,7 +22,7 @@ Route::prefix('/user')->group(function () {
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::prefix('/patients')->group(function () {
-        Route::post('/register', [PatientController::class, 'register']);
+        Route::post('/register', [PatientController::class, 'store']);
         Route::get('/view', [PatientController::class, 'index']);
     });
 
