@@ -98,21 +98,23 @@ class PatientController extends Controller
     public function view_visits()
     {
         $visits = Visit::where('on_diet', true)->orderBy('created_at', 'desc')->get();
-       
+        
+        $dataSet = [];
         foreach ($visits as $visit) {
             $patient=Patient::where('id',$visit->patient_id)->first();
             $vital=Vital::where('id',$visit->patient_id)->first();
             $name = $patient->firstname;
             $age =  $patient->dob;
             $bmi = $vital->bmi;
-
-            $data = ([
+            $dataSet[] = [
                 'name' => $name,
                 'age' => $age,
                 'bmi' => $bmi
-            ]);
+            ];
+
+            
         }
-        return $this->successResponse("success", $data);
+        return $this->successResponse("success", $dataSet);
     }
 
     public function add_visits(Request  $request)
