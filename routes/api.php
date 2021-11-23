@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::prefix('/patients')->group(function () {
         Route::post('/register', [PatientController::class, 'store']);
         Route::get('/view', [PatientController::class, 'index']);
-        Route::get('/show{id}', [PatientController::class, 'show']);
+        Route::get('/show/{id}', [PatientController::class, 'show']);
         
     });
 
