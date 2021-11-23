@@ -39,5 +39,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 });
 
-// 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
  

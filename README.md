@@ -72,7 +72,7 @@ You can now access the server at http://localhost:8000
 **TL;DR command list**
 
     git clone https://github.com/Itskiprotich/BMI-Backend.git
-    cd lBMI-Backend
+    cd BMI-Backend
     composer install
     cp .env.example .env
     php artisan key:generate
