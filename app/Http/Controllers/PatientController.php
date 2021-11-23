@@ -99,9 +99,9 @@ class PatientController extends Controller
 
         ]);
         $visit_date = $attr['visit_date'];
-        $date = Carbon::createFromFormat('Y-m-d', $visit_date);
+        // $date = Carbon::createFromFormat('Y-m-d', $visit_date);
 
-        $visits = Visit::where('visit_date',$date)->orderBy('created_at', 'desc')->get();
+        $visits = Visit::where('visit_date',$visit_date)->orderBy('created_at', 'desc')->get();
         $dataSet = [];
         if ($visits) {
             foreach ($visits as $visit) {
