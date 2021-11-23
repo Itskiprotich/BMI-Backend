@@ -74,13 +74,13 @@ class PatientController extends Controller
         if ($vital) {
             if ($bmi <= 25) {
                 $data = ([
-                    'id'=>$vital->id,
+                    'id' => $vital->id,
                     'slug' => 1,
                     'message' => "Vital Added Successfully",
                 ]);
             } else {
                 $data = ([
-                    'id'=>$vital->id,
+                    'id' => $vital->id,
                     'slug' => 0,
                     'message' => "Vital Added Successfully",
                 ]);
@@ -96,9 +96,12 @@ class PatientController extends Controller
     {
         $attr = $request->validate([
             'visit_date' => 'required|string',
-           
+
         ]);
-        $visits = Visit::where('visit_date', $attr['visit_date'])->orderBy('created_at', 'desc')->get();
+        $visit_date = $attr['visit_date'];
+        $date = Carbon::createFromFormat('Y-m-d', $visit_date);
+
+        $visits = Visit::where('visit_date',$date)->orderBy('created_at', 'desc')->get();
         $dataSet = [];
         if ($visits) {
             foreach ($visits as $visit) {
@@ -129,22 +132,20 @@ class PatientController extends Controller
             'on_diet' => 'required|string',
             'on_drugs' => 'required|string',
             'comments' => 'required|string',
-            'visit_date'=> 'required|string',
+            'visit_date' => 'required|string',
             'patient_id' => 'required|string',
         ]);
 
         $diet = $request->on_diet === 'true' ? true : false;
         $drugs = $request->on_drugs === 'true' ? true : false;
 
-        if (Visit::where(['patient_id' => $attr['patient_id'],'visit_date' => $attr['visit_date']])->exists()) 
-           {
-            $data = ([            
+        if (Visit::where(['patient_id' => $attr['patient_id'], 'visit_date' => $attr['visit_date']])->exists()) {
+            $data = ([
                 'slug' => 1,
                 'message' => "The patient has existing Visit for today",
             ]);
             return $this->successResponse("success", $data);
-
-           }
+        }
         $visits = Visit::create([
             'general_health' => $attr['general_health'],
             'on_diet' => $diet,
@@ -154,7 +155,7 @@ class PatientController extends Controller
             'patient_id' => $attr['patient_id'],
         ]);
         if ($visits) {
-            $data = ([            
+            $data = ([
                 'slug' => 0,
                 'message' => "Visit Added Successfully",
             ]);
