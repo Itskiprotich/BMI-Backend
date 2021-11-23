@@ -87,15 +87,17 @@ You can now access the server at http://localhost:8000
 
 | Method | Endpoint                        | Description                           | Roles         |
 | ------ | ------------------------------- | ------------------------------------- | ------------  |
-| POST   | /api/user/signup            | sign up a user                        | users         |
-| POST   | /api/user/signin           | login a users                   | users         |
-| POST    |/api/patients/register | Create a Patient          | users/admin   |
-| GET    | /api/patients/view  | get all Patients           | Authenticated Users          |
-| GET    | /api/patients/view/{id}  | get single Patient            | Authenticated Users          |
+| POST   | /api/user/signup            | sign up a user     | users         |
+| POST   | /api/user/signin            | login a users      | users         |
+| POST    |/api/patients/register      | Create a Patient   | users/admin   |
+| GET    | /api/patients/view          | get all Patients   | Authenticated Users    |
+| GET    | /api/patients/view/{id}     | get single Patient | Authenticated Users    |
+| POST   | /api/vital/add              | Add Vital          | Authenticated Users    |
+| POST   | /api/visits/add | Add Visit            | Authenticated Users          |
+| GET    | /api/visits/view | Add Visit            | Authenticated Users          |
  
  
-
-patients/show/5
+ 
 ## Author
 
 Kiprotich Japheth
