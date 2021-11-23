@@ -96,16 +96,19 @@ class PatientController extends Controller
         $dataSet = [];
         if ($visits) {
             foreach ($visits as $visit) {
+
                 $patient = Patient::where('id', $visit->patient_id)->first();
                 $vital = Vital::where('id', $visit->patient_id)->first();
-                $name = $patient->firstname;
-                $age =  $patient->dob;
-                $bmi = $vital->bmi;
-                $dataSet[] = [
-                    'name' => $name,
-                    'age' => $age,
-                    'status' => $bmi
-                ];
+                if ($patient) {
+                    $name = $patient->firstname;
+                    $age =  $patient->dob;
+                    $bmi = $vital->bmi;
+                    $dataSet[] = [
+                        'name' => $name,
+                        'age' => $age,
+                        'status' => $bmi
+                    ];
+                }
             }
             return $this->successResponse("success", $dataSet);
         } else {
