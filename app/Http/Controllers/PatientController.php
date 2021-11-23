@@ -99,7 +99,7 @@ class PatientController extends Controller
 
         ]);
         $visit_date = $attr['visit_date'];
-        // $date = Carbon::createFromFormat('Y-m-d', $visit_date);
+        
 
         $visits = Visit::where('visit_date',$visit_date)->orderBy('created_at', 'desc')->get();
         $dataSet = [];
@@ -109,9 +109,14 @@ class PatientController extends Controller
                 $patient = Patient::where('id', $visit->patient_id)->first();
                 $vital = Vital::where('id', $visit->patient_id)->first();
                 if ($patient) {
+                    
                     $name = $patient->firstname;
-                    $age =  $patient->dob;
+                    $dob =  $patient->dob;
                     $bmi = $vital->bmi;
+
+                    $date_of_birth = Carbon::createFromFormat('Y-m-d', $dob);
+                    
+                    $age = Carbon::parse($date_of_birth)->diff(Carbon::now())->y;
                     $dataSet[] = [
                         'name' => $name,
                         'age' => $age,
