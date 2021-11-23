@@ -92,9 +92,7 @@ You can now access the server at http://localhost:8000
 | POST    |/api/patients/register | Create a Patient          | users/admin   |
 | GET    | /api/patients/view  | get all Patients           | Authenticated Users          |
  
-| PATCH    |/api/posts/delete/<str:pk>     | delete specific post                 | Users         |
-| POST | /api/posts/comment/<str:pk>         | delete a specific blog post               | Admin/users   |
-| GET | /api/posts/comments        | get all comments blog post               | Admin/users   |
+ 
 
 
 ## Author
