@@ -18,6 +18,7 @@ class Visit extends Model
         'general_health',
         'on_diet',
         'on_drugs',
+        'visit_date',
         'comments',
         'patient_id'
     ];

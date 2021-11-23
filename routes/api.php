@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
     Route::prefix('/visits')->group(function () {
         Route::post('/add', [PatientController::class, 'add_visits']);
-        Route::get('/view', [PatientController::class, 'view_visits']);
+        Route::post('/view', [PatientController::class, 'view_visits']);
         
     });
 });

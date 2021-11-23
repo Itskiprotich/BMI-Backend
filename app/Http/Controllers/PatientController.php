@@ -90,9 +90,13 @@ class PatientController extends Controller
         }
     }
 
-    public function view_visits()
+    public function view_visits(Request $request)
     {
-        $visits = Visit::where('on_diet', true)->orderBy('created_at', 'desc')->get();
+        $attr = $request->validate([
+            'visit_date' => 'required|string',
+           
+        ]);
+        $visits = Visit::where('visit_date', $attr['visit_date'])->orderBy('created_at', 'desc')->get();
         $dataSet = [];
         if ($visits) {
             foreach ($visits as $visit) {
@@ -123,15 +127,18 @@ class PatientController extends Controller
             'on_diet' => 'required|string',
             'on_drugs' => 'required|string',
             'comments' => 'required|string',
+            'visit_date'=> 'required|string',
             'patient_id' => 'required|string',
         ]);
 
         $diet = $request->on_diet === 'true' ? true : false;
         $drugs = $request->on_drugs === 'true' ? true : false;
+
         $visits = Visit::create([
             'general_health' => $attr['general_health'],
             'on_diet' => $diet,
             'on_drugs' => $drugs,
+            'visit_date' => $attr['visit_date'],
             'comments' => $attr['comments'],
             'patient_id' => $attr['patient_id'],
         ]);
