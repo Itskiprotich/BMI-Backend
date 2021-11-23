@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Patient;
+use App\Models\Vital;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,7 @@ class CreateVisitsTable extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->id(); 
             $table->foreignIdFor(Patient::class); 
+            $table->foreignIdFor(Vital::class); 
             $table->string('general_health');
             $table->string('visit_date');
             $table->boolean('on_diet')->default(false);
