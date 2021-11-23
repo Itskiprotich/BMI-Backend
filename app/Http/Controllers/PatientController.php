@@ -74,7 +74,8 @@ class PatientController extends Controller
         if ($vital) {
             if ($bmi <= 25) {
                 $data = ([
-                    'vital' => $vital->id,
+                    'id' => $vital->id,
+                    'patient_id'=>$vital->patient_id,
                     'slug' => 1,
                     'message' => "Vital Added Successfully",
                 ]);
@@ -151,6 +152,7 @@ class PatientController extends Controller
             'comments' => 'required|string',
             'visit_date' => 'required|string',
             'patient_id' => 'required|string',
+            'vital_id' => 'required|string',
         ]);
 
         $diet = $request->on_diet === 'true' ? true : false;
@@ -170,6 +172,7 @@ class PatientController extends Controller
             'visit_date' => $attr['visit_date'],
             'comments' => $attr['comments'],
             'patient_id' => $attr['patient_id'],
+            'vital_id' => $attr['vital_id'],
         ]);
         if ($visits) {
             $data = ([
