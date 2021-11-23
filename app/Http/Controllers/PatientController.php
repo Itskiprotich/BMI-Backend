@@ -122,7 +122,7 @@ class PatientController extends Controller
                     }
                     if ($bmi < 18.5) {
                         $status = "Underweight";
-                    } else if ($bmi > 18.5 && $bmi<25) {
+                    } else if ($bmi > 18.5 and $bmi<25) {
                         $status = "Normal";
                     } else if ($bmi >= 25) {
                         $status = "Overweight";
