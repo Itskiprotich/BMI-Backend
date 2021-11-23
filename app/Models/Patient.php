@@ -24,6 +24,7 @@ class Patient extends Model
         'unique',
         'dob',
         'gender',
+        'reg_date'
         
     ];
 

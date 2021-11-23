@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Patient;
 use App\Models\Visit;
 use App\Models\Vital;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -153,7 +154,8 @@ class PatientController extends Controller
             'unique' => 'required|string|max:255',
             'dob' => 'required|string|max:255',
             'gender' => 'required|string|max:255',
-
+            'reg_date' => 'required|string|max:255',
+        
         ]);
 
         if (Patient::where('unique', '=', $attr['unique'])->exists()) {
@@ -163,13 +165,14 @@ class PatientController extends Controller
             ]);
             return $this->successResponse("success", $data);
         }
-
+        $formattedDate = Carbon::parse($attr['reg_date'])->format('Y-m-d');
         $patient = Patient::create([
             'firstname' => $attr['firstname'],
             'lastname' => $attr['lastname'],
             'unique' => $attr['unique'],
             'dob' => $attr['dob'],
             'gender' => $attr['gender'],
+            'reg_date' => $formattedDate
 
         ]);
         if ($patient) {

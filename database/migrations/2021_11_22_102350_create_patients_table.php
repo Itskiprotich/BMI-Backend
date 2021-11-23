@@ -20,6 +20,7 @@ class CreatePatientsTable extends Migration
             $table->string('lastname');
             $table->string('dob');
             $table->string('gender');
+            $table->string('reg_date');
             $table->timestamps();
         });
     }
