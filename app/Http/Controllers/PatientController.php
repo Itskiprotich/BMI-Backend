@@ -137,7 +137,7 @@ class PatientController extends Controller
         ]);
         if ($visits) {
             $data = ([
-                'code' => 0,
+                'slug' => 0,
                 'message' => "Visit Added Successfully",
             ]);
             return $this->successResponse("success", $data);
