@@ -49,13 +49,7 @@ class PatientController extends Controller
 
         return $this->successResponse("success", $patient);
     }
-
-    public function test_sample()
-    {
-        # code...
-        $patient = Patient::where('gender', 'Male')->orderBy('created_at', 'desc')->get();
-        return $this->successResponse("success", $patient);
-    }
+ 
 
     public function add_vital(Request  $request)
     {
@@ -109,7 +103,7 @@ class PatientController extends Controller
             $dataSet[] = [
                 'name' => $name,
                 'age' => $age,
-                'bmi' => $bmi
+                'status' => $bmi
             ];
 
             
