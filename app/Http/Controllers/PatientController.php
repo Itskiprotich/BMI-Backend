@@ -136,6 +136,15 @@ class PatientController extends Controller
         $diet = $request->on_diet === 'true' ? true : false;
         $drugs = $request->on_drugs === 'true' ? true : false;
 
+        if (Visit::where(['patient_id' => $attr['patient_id'],'visit_date' => $attr['visit_date']])->exists()) 
+           {
+            $data = ([            
+                'slug' => 1,
+                'message' => "The patient has existing Visit for today",
+            ]);
+            return $this->successResponse("success", $data);
+
+           }
         $visits = Visit::create([
             'general_health' => $attr['general_health'],
             'on_diet' => $diet,
@@ -145,8 +154,7 @@ class PatientController extends Controller
             'patient_id' => $attr['patient_id'],
         ]);
         if ($visits) {
-            $data = ([
-            
+            $data = ([            
                 'slug' => 0,
                 'message' => "Visit Added Successfully",
             ]);
