@@ -99,9 +99,9 @@ class PatientController extends Controller
 
         ]);
         $visit_date = $attr['visit_date'];
-        
 
-        $visits = Visit::where('visit_date',$visit_date)->orderBy('created_at', 'desc')->get();
+
+        $visits = Visit::where('visit_date', $visit_date)->orderBy('created_at', 'desc')->get();
         $dataSet = [];
         if ($visits) {
             foreach ($visits as $visit) {
@@ -109,18 +109,28 @@ class PatientController extends Controller
                 $patient = Patient::where('id', $visit->patient_id)->first();
                 $vital = Vital::where('id', $visit->patient_id)->first();
                 if ($patient) {
-                    
+
                     $name = $patient->firstname;
                     $dob =  $patient->dob;
                     $bmi = $vital->bmi;
 
                     $date_of_birth = Carbon::createFromFormat('Y-m-d', $dob);
-                    
+
                     $age = Carbon::parse($date_of_birth)->diff(Carbon::now())->y;
+                    if ($bmi < 18.5) {
+                        $status = "Underweight";
+                    }
+                    if ($bmi < 18.5) {
+                        $status = "Underweight";
+                    } else if ($bmi > 18.5 && $bmi<25) {
+                        $status = "Normal";
+                    } else if ($bmi >= 25) {
+                        $status = "Overweight";
+                    }
                     $dataSet[] = [
                         'name' => $name,
                         'age' => $age,
-                        'status' => $bmi
+                        'status' => $status
                     ];
                 }
             }
