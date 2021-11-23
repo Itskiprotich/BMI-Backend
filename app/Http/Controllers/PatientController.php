@@ -120,22 +120,24 @@ class PatientController extends Controller
     {
         $attr = $request->validate([
             'general_health' => 'required|string',
-            'on_diet' => 'required|boolean',
-            'on_drugs' => 'required|boolean',
+            'on_diet' => 'required|string',
+            'on_drugs' => 'required|string',
             'comments' => 'required|string',
             'patient_id' => 'required|string',
         ]);
 
+        $diet = $request->on_diet === 'true' ? true : false;
+        $drugs = $request->on_drugs === 'true' ? true : false;
         $visits = Visit::create([
             'general_health' => $attr['general_health'],
-            'on_diet' => $attr['on_diet'],
-            'on_drugs' => $attr['on_drugs'],
+            'on_diet' => $diet,
+            'on_drugs' => $drugs,
             'comments' => $attr['comments'],
             'patient_id' => $attr['patient_id'],
         ]);
         if ($visits) {
             $data = ([
-                'slug' => 0,
+                'code' => 0,
                 'message' => "Visit Added Successfully",
             ]);
             return $this->successResponse("success", $data);
