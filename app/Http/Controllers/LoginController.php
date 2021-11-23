@@ -64,7 +64,7 @@ class LoginController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $attr['firstname'] . $attr['lastname'],
+            'name' => $attr['firstname']." " . $attr['lastname'],
             'password' => bcrypt($attr['password']),
             'email' => $attr['email'],
         ]);
