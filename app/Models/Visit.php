@@ -20,6 +20,7 @@ class Visit extends Model
         'on_drugs',
         'visit_date',
         'comments',
-        'patient_id'
+        'patient_id',
+        'vital_id'
     ];
 }
