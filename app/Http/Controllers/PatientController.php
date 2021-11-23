@@ -74,11 +74,13 @@ class PatientController extends Controller
         if ($vital) {
             if ($bmi <= 25) {
                 $data = ([
+                    'id'=>$vital->id,
                     'slug' => 1,
                     'message' => "Vital Added Successfully",
                 ]);
             } else {
                 $data = ([
+                    'id'=>$vital->id,
                     'slug' => 0,
                     'message' => "Vital Added Successfully",
                 ]);
@@ -144,6 +146,7 @@ class PatientController extends Controller
         ]);
         if ($visits) {
             $data = ([
+            
                 'slug' => 0,
                 'message' => "Visit Added Successfully",
             ]);
