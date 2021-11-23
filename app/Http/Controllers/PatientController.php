@@ -108,8 +108,8 @@ class PatientController extends Controller
         if ($visits) {
             foreach ($visits as $visit) {
 
-                $patient = Patient::where('id', $visit->patient_id)->first();
-                $vital = Vital::where('id', $visit->patient_id)->first();
+                $patient = Patient::where('id', $visit->patient_id)->orderBy('id', 'DESC')->first();
+                $vital = Vital::where('patient_id', $visit->patient_id)->orderBy('id', 'DESC')->first();
                 if ($patient) {
 
                     $name = $patient->firstname." ".$patient->lastname;
