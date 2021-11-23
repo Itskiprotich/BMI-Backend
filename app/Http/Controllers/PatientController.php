@@ -50,7 +50,7 @@ class PatientController extends Controller
 
         return $this->successResponse("success", $patient);
     }
- 
+
 
     public function add_vital(Request  $request)
     {
@@ -93,23 +93,24 @@ class PatientController extends Controller
     public function view_visits()
     {
         $visits = Visit::where('on_diet', true)->orderBy('created_at', 'desc')->get();
-        
         $dataSet = [];
-        foreach ($visits as $visit) {
-            $patient=Patient::where('id',$visit->patient_id)->first();
-            $vital=Vital::where('id',$visit->patient_id)->first();
-            $name = $patient->firstname;
-            $age =  $patient->dob;
-            $bmi = $vital->bmi;
-            $dataSet[] = [
-                'name' => $name,
-                'age' => $age,
-                'status' => $bmi
-            ];
-
-            
+        if ($visits) {
+            foreach ($visits as $visit) {
+                $patient = Patient::where('id', $visit->patient_id)->first();
+                $vital = Vital::where('id', $visit->patient_id)->first();
+                $name = $patient->firstname;
+                $age =  $patient->dob;
+                $bmi = $vital->bmi;
+                $dataSet[] = [
+                    'name' => $name,
+                    'age' => $age,
+                    'status' => $bmi
+                ];
+            }
+            return $this->successResponse("success", $dataSet);
+        } else {
+            return $this->errorResponse("No Data Found");
         }
-        return $this->successResponse("success", $dataSet);
     }
 
     public function add_visits(Request  $request)
@@ -155,7 +156,7 @@ class PatientController extends Controller
             'dob' => 'required|string|max:255',
             'gender' => 'required|string|max:255',
             'reg_date' => 'required|string|max:255',
-        
+
         ]);
 
         if (Patient::where('unique', '=', $attr['unique'])->exists()) {
