@@ -91,10 +91,11 @@ You can now access the server at http://localhost:8000
 | POST   | /api/user/signin           | login a users                   | users         |
 | POST    |/api/patients/register | Create a Patient          | users/admin   |
 | GET    | /api/patients/view  | get all Patients           | Authenticated Users          |
+| GET    | /api/patients/view/{id}  | get single Patient            | Authenticated Users          |
  
  
 
-
+patients/show/5
 ## Author
 
 Kiprotich Japheth
