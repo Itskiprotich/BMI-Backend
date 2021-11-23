@@ -233,7 +233,8 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        //
+        $patient=Patient::where('id', '=', $id)->get();
+        return $this->successResponse("success", $patient);
     }
 
     /**
