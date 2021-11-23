@@ -111,7 +111,7 @@ class PatientController extends Controller
                 $vital = Vital::where('id', $visit->patient_id)->first();
                 if ($patient) {
 
-                    $name = $patient->firstname;
+                    $name = $patient->firstname." ".$patient->lastname;
                     $dob =  $patient->dob;
                     $bmi = $vital->bmi;
 
