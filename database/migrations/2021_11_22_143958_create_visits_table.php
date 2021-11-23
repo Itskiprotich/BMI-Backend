@@ -18,6 +18,7 @@ class CreateVisitsTable extends Migration
             $table->id(); 
             $table->foreignIdFor(Patient::class); 
             $table->string('general_health');
+            $table->string('visit_date');
             $table->boolean('on_diet')->default(false);
             $table->boolean('on_drugs')->default(false);
             $table->text('comments'); 
