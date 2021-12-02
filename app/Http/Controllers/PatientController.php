@@ -161,7 +161,7 @@ class PatientController extends Controller
         if (Visit::where(['patient_id' => $attr['patient_id'], 'visit_date' => $attr['visit_date']])->exists()) {
             $data = ([
                 'slug' => 1,
-                'message' => "The patient has existing Visit for today",
+                'message' => "The patient has existing Visit for this Day",
             ]);
             return $this->successResponse("success", $data);
         }
