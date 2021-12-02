@@ -46,7 +46,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $patient = DB::table('patients')->get();
+        $patient = DB::table('patients')->orderBy('created_at', 'desc')->get();
 
         return $this->successResponse("success", $patient);
     }
