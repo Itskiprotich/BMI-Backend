@@ -1,0 +1,47 @@
+version: '3'
+volumes:
+  db: {}
+
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: "smp-imeja"
+      MYSQL_DATABASE: "smp-imeja"
+      MYSQL_USER: "smp-imeja"
+      MYSQL_PASSWORD: "smp-imeja"
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "./server/init.db:/docker-entrypoint-initdb.d"
+      - "db:/var/lib/mysql"
+  app:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    environment:
+      HOSTNAME: "127.0.0.1"
+      APP_URL: http://localhost:{DEV_PORT:-8181}
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: smp-imeja
+      DB_CONNECTION: mysql
+      DB_PASSWORD: smp-imeja
+      DB_DATABASE: smp-imeja
+      TEST_DATABASE: mysql://smp-imeja:smp-imeja@db:3306/smp-imeja
+      MAIL_HOST: smtp.gmail.com
+      MAIL_PORT: 587
+      MAIL_DRIVER: smtp
+    ports:
+      - ${DEV_PORT:-8181}:8181
+    volumes:
+      - ./:/app
+      - ./server/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      # myphpadmin:
+      #   image: phpmyadmin/phpmyadmin:latest
+      #   container_name: MyPhpAdmin
+      #   restart: always
+      #   hostname: database
+    entrypoint: /app/server/entrypoint.app.sh
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
